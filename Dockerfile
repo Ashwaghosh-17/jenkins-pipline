@@ -1,4 +1,7 @@
 FROM openjdk:17-jdk-alpine
+#FROM openjdk:17-jdk-alpine
+
+WORKDIR /app
 
 COPY target/demo-1.0.jar app.jar
 
