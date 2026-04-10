@@ -2,31 +2,27 @@ pipeline{
     agent any 
     
     stages{
-        stage("git checkout"){
+        stage("Git checkout code"){
             steps{
-                echo "git pull"
+                git 'https://github.com/Ashwaghosh-17/jenkins-pipline.git'
             }
         }    
         stage("build code"){
             steps{
-                echo "code build"
+                sh "mvn clean package"
+                echo "BUILD_ID"
             }
         } 
         stage("test"){
             steps{
-                echo "code testing"
+                sh 'mvn test'
             }
         }
-        stage("build image"){
+        stage("build docker image"){
             steps{
-                echo "docker image"
+                sh "docker build -t app ."   
             }
-        }  
-        stage("push image"){
-            steps{
-                echo "docker image push to docker repo"
-            }
-        }   
+        }    
     }    
     post{
         success{
