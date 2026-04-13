@@ -13,7 +13,7 @@ pipeline{
                 git branch: 'main', url: 'https://github.com/Ashwaghosh-17/jenkins-pipline.git'
             }
         }    
-          }    
+        }    
         stage("environment"){
             steps{
                sh '''
@@ -34,7 +34,8 @@ pipeline{
             }
             post{
                 always{
-                echo "test done"                }
+                echo "test done"               
+            }
             }
         }
         stage("build docker image"){
@@ -63,4 +64,4 @@ pipeline{
         echo "========A execution failed========"
             }
         }
-    }
+    
