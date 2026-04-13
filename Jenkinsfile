@@ -20,12 +20,18 @@ pipeline{
         }
         stage("build docker image"){
             steps{
-                sh "docker build -t app ."   
+                sh '''
+                docker rmi -f app 
+                docker build -t app .
+                '''   
             }
         }    
         stage("deployment"){
             steps{
-                sh "docker run -itd --name web app /bin/bash"   
+                sh '''
+                docker rm web
+                docker run -itd --name web app /bin/bash
+                '''   
             }
         }        
     }   
