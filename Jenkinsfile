@@ -6,14 +6,13 @@ pipeline{
         USER="DEV"
         PASS=credentials('PASS')
     }
-
     stages{
         stage("Git checkout code"){
             steps{
                 git branch: 'main', url: 'https://github.com/Ashwaghosh-17/jenkins-pipline.git'
             }
         }    
-        }    
+    }    
         stage("environment"){
             steps{
                sh '''
@@ -31,11 +30,6 @@ pipeline{
         stage("test"){
             steps{
                 sh 'mvn test'
-            }
-            post{
-                always{
-                echo "test done"               
-            }
             }
         }
         stage("build docker image"){
@@ -59,9 +53,9 @@ pipeline{
     post{
         success{
         echo "========A executed successfully========"
-            }
+        }
         failure{
         echo "========A execution failed========"
-            }
         }
+    }
     
