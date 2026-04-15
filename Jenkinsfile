@@ -43,11 +43,19 @@ pipeline{
                 ''' 
             }
         }    
-        stage("deployment"){
+         stage("create container"){
             steps{
                 sh '''
                 docker rm -f web 
                 docker run -itd --name web app /bin/bash
+                '''
+            }
+        }        
+        stage("docker push"){
+            steps{
+                sh '''
+                docker tag app ashwaghoshambade/dev-repo:latest
+                docker push ashwaghoshambade/dev-repo:latest
                 '''
             }
         }        
