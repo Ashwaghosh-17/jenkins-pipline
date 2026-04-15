@@ -54,7 +54,7 @@ pipeline{
         stage("docker push"){
             steps{
 
-               withCredentials([string(credentialsId: 'docker-pass', variable: 'docker-hub')]) {
+               withCredentials([string(credentialsId: 'docker-passwd', variable: 'docker-hub')]) {
                sh 'docker login -u ashwaghoshambade -p $(docker-hub)'
             }
                 sh '''
