@@ -24,7 +24,7 @@ pipeline{
         stage("build docker image"){
             steps{
                 sh '''
-                docker rmi -f app 
+              
                 docker build -t app .
                 '''   
             }
@@ -32,7 +32,7 @@ pipeline{
         stage("deployment"){
             steps{
                 sh '''
-                docker rm -f web
+               
                 docker run -itd --name web app /bin/bash
                 '''   
             }
