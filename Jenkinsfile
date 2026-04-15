@@ -29,7 +29,12 @@ pipeline{
             steps{
                 sh "mvn test"
             }
+            post {
+                always {
+                    echo "test done"
+            }
         }
+    }    
         stage("build docker image"){
             steps{
                 sh '''
