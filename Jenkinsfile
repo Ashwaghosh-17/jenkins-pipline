@@ -1,12 +1,24 @@
 pipeline{
     agent any 
     
+    environment {
+        STAGE="PROD"
+        USER="DEV"
+        PASS=credentials('PASS')
+    }
     stages{
         stage ("Git checkout code"){
         steps {        
             git branch: 'main', url: 'https://github.com/Ashwaghosh-17/jenkins-pipline.git'
         }
-    }       
+    }
+       stage("environment"){
+            steps{
+                sh '''
+                echo "STAGE"
+                '''
+            }
+        }       
         stage("build code"){
             steps{
                 sh "mvn clean package"
