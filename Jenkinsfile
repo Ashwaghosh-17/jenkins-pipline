@@ -53,9 +53,14 @@ pipeline{
         }        
         stage("docker push"){
             steps{
+
+               withCredentials([string(credentialsId: 'docker-pass', variable: 'docker-hub')]) {
+               sh 'docker login -u ashwaghoshambade -p $(docker-hub)'
+            }
                 sh '''
                 docker tag app ashwaghoshambade/dev-repo:latest
                 docker push ashwaghoshambade/dev-repo:latest
+                docker logout
                 '''
             }
         }        
