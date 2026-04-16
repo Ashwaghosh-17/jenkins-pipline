@@ -55,7 +55,7 @@ pipeline{
             steps{
 
                withCredentials([string(credentialsId: 'docker-passwd', variable: 'docker-hub')]) {
-               sh 'docker login -u ashwaghoshambade -p $(docker-hub)'
+               sh 'docker login -u ashwaghoshambade p $(docker-hub)'
             }
                 sh '''
                 docker tag app ashwaghoshambade/dev-repo:latest
