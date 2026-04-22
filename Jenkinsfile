@@ -51,19 +51,20 @@ pipeline{
                 '''
             }
         }        
-        stage("docker push"){
-            steps{
-
-               withCredentials([string(credentialsId: 'docker-passwd', variable: 'docker-hub')]) {
-               sh 'docker login -u ashwaghoshambade p $(docker-hub)'
+       
+        stage('Docker Login') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'Docker-hub',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    sh '''
+                    echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                    '''
+                }
             }
-                sh '''
-                docker tag app ashwaghoshambade/dev-repo:latest
-                docker push ashwaghoshambade/dev-repo:latest
-                docker logout
-                '''
-            }
-        }        
+        }    
     }   
 
     post{
