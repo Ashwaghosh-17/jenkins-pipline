@@ -39,19 +39,10 @@ pipeline{
             steps{
                 sh '''
                 docker rmi -f app
-                docker build -t app .
+                docker build -t ashwaghoshambade/dev-repo:latest .
                 ''' 
             }
         }    
-         stage("create container"){
-            steps{
-                sh '''
-                docker rm -f web 
-                docker run -itd --name web app /bin/bash
-                '''
-            }
-        }        
-       
         stage('Docker Login') {
             steps {
                 withCredentials([usernamePassword(
